@@ -1,0 +1,4 @@
+addpath('C:\Users\NIKHIL\Desktop\casadi-windows-matlabR2016a-v3.5.5')
+import casadi.*
+x = MX.sym('x')
+disp(jacobian(sin(x),x))
