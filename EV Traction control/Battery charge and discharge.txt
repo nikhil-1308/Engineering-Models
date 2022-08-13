@@ -1,0 +1,12 @@
+A Battery can not be charged or discharged at the same time. However it may so happen that a charger is connected to a battery while the battery is connected to a Load.
+
+Let the Charging current be Ic . The Current into or out of the battery be Ib and the Current through the Load is IL.
+
+Note the current to charge the battery is proportional to the amount it has discharged. In other words the Internal resistance of the battery is low at when highly discharged while it is high when not so discharged. The Resistance of the Load and the Current Il is constant. The Current through the charger Ic = Ib + IL by Kirchoffs Current Law ( assuming that the charger has negligible internal resistance). So you see that the battery is charging but the Load connected gets its current from the charger not the battery.
+
+
+If the Battery is fully charged there wont be any charging current into the battery. In that case The battery will also discharge through the Load. IL = Ic + Ib . The ratio of Ib to Ic will be dependent on the internal resistances of the charger and the battery.
+
+Coming back to your question the battery can not be charging or discharging at the same time. If a load is connected to the battery while charging the charger powers the load along with charging the battery. As the battery gets fully charged the charging current drops to zero. After that the current through the battery reverses and discharges through the load. This discharges the battery so it gets charged from the charger. Actually the systems stops at a point of equilibrium where there is no battery current involved. The charger powers the load as long as connected and the battery does not drain or charge.
+
+Also contrary to another answer there is nothing wrong in using the phone while charging. There is no harm to the battery as proved above. There are some posts in Facebook about accidents related to using the phone while charging. That is meaningless too. The situation can be dangerous only if the primary of the transformer of the charger loses its insulation from the secondary and AC current starts flowing into the phone. Under the standards of Consumer Electrical code this is highly improbable.
