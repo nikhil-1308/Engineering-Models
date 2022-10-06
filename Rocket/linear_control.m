@@ -2,6 +2,7 @@ close all;
 clear all;
 clc;
 
+global K
 theta = 30;
 theta_dot = 0;
 Z = 0;
@@ -11,10 +12,6 @@ delta = 0;
 Q0 = [theta;theta_dot;Z;alpha;alpha_w;delta];
 T = 0:0.1:1000; % solution time mesh
 
-[t,y] = ode45(@dxdt, T, Q0);
- plot(t,y(:,6))
-
-function Q = dxdt(~,Q)
 m = 38901;
 Tc = 2.361e+6;
 T0 = 0.1*Tc;
@@ -30,9 +27,41 @@ F = T0 + Tc;
 Malpha = 0.3807;
 Mdelta = 0.526;
 Nalpha = 686819;
-K1 = 0.5441;
-K2 = 5.8607;
-K3 = 0.5464;
+A = [0 1 0;...
+     Malpha 0 Malpha/V;...
+     -(F-D+Nalpha)/m 0 -Nalpha/(m*V)];
+B = [0;Mdelta;Tc/m];
+C = [1 1 0];
+Qq = C'*C;
+R = 0.2^2;
+[K, S, E] = lqr(A, B, Qq, R);
+%%
+[t,y] = ode45(@dxdt, T, Q0);
+plot(t,y(:,1))
+
+function Q = dxdt(~,Q)
+global K
+m = 38901;
+Tc = 2.361e+6;
+T0 = 0.1*Tc;
+V = 1347;
+Vm = 30;
+roh = 0.0765;
+Dyp = 0.5*roh*Vm^2;
+Ca = 1.7228;
+Fbase = 10;
+S = 116.2;
+D = Ca*Dyp*S - Fbase;
+F = T0 + Tc;
+Malpha = 0.3807;
+Mdelta = 0.526;
+Nalpha = 686819;
+% K1 = 0.5441;
+% K2 = 5.8607;
+% K3 = 0.5464;
+K1 = K(1);
+K2 = K(2);
+K3 = K(3);
 B0 = ((Tc*K1)/(m*V))*(Malpha+(Mdelta*Nalpha)/Tc) - ((F-D)/(m*V))*(Mdelta*K3-Malpha);
 B1 = Mdelta*(K1+K2) - Malpha + ((K2*Tc)/(m*V))*(Malpha+(Mdelta*Nalpha)/Tc);
 B2 = Mdelta*K2 + (Tc/(m*V))*(K3+(Nalpha/Tc));
